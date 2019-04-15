@@ -18,7 +18,7 @@ body {
 
 #temp-sect {
   width: 100%;
-  background: #3e98e8;
+  background: #2689e0;
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 0px 1px 4px #a5a5a5;
@@ -85,7 +85,7 @@ body {
   line-height: 36px;
   width: 20%;
   border: 1px solid #6daee8;
-  background: #3e98e8;
+  background: #2689e0;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
@@ -157,8 +157,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.forecast-box {
-}
+.forecast-box {}
 
 .forecast-day {
   margin-top: 15px;
@@ -169,18 +168,19 @@ body {
 }
 
 .forecast-icon {
-  margin: 0 auto;
-  width: 50px;
-  height: 50px;
-  background: url("SVG/Cloud-Drizzle-Sun-Alt.svg");
+  width: 40px;
+  height: 40px;
+  background: url("img/forecast/03d.png");
+  opacity: .7;
   background-size: cover;
+  margin: 2px auto;
 }
 
 .forecast-temp {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
-  color: #3e98e8;
+  color: #2689e0;
   margin-bottom: 15px;
 }
 

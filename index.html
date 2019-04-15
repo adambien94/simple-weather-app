@@ -1,92 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>JSON/AJAX</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
-      rel="stylesheet"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
 
-  <body>
-    <div class="container">
-      <section id="temp-sect">
-        <section id="main-info">
-          <div id="main-icon"></div>
-          <div id="city-name">City</div>
-          <div id="date">...</div>
-          <div id="temp">...&degC</div>
-        </section>
+<head>
+  <meta charset="UTF-8" />
+  <title>JSON/AJAX</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div class="container">
+    <section id="temp-sect">
+      <section id="main-info">
+        <div id="main-icon"></div>
+        <div id="city-name">City</div>
+        <div id="date">...</div>
+        <div id="temp">...&degC</div>
+      </section>
+    </section>
+
+    <section id="input-sect">
+      <input type="text" id="city-input" value="city.." />
+      <input type="submit" id="check" value="OK" />
+    </section>
+
+    <div id="data" class="data-hidden">
+      <section id="pressure-sect">
+        <div class="icon" id="pressure-icon"></div>
+        <p class="data-title">Ciśnienie</p>
+        <div id="pressure">pressure</div>
+      </section>
+      <section id="humidity-sect">
+        <div class="icon" id="humidity-icon"></div>
+        <p class="data-title">Wilgotność pow.</p>
+        <div id="humidity">humidity</div>
+      </section>
+      <section id="wind-sect">
+        <div class="icon" id="wind-icon"></div>
+        <p class="data-title">Wiatr</p>
+        <div id="wind">wind</div>
       </section>
 
-      <section id="input-sect">
-        <input type="text" id="city-input" value="city.." />
-        <input type="submit" id="check" value="OK" />
-      </section>
-
-      <div id="data" class="data-hidden">
-        <section id="pressure-sect">
-          <div class="icon" id="pressure-icon"></div>
-          <p class="data-title">Ciśnienie</p>
-          <div id="pressure">pressure</div>
-        </section>
-        <section id="humidity-sect">
-          <div class="icon" id="humidity-icon"></div>
-          <p class="data-title">Wilgotność pow.</p>
-          <div id="humidity">humidity</div>
-        </section>
-        <section id="wind-sect">
-          <div class="icon" id="wind-icon"></div>
-          <p class="data-title">Wiatr</p>
-          <div id="wind">wind</div>
-        </section>
-
-        <section id="forecast">
-          <div id="day1" class="forecast-box">
-            <div class="forecast-day" id="day1-day">Pon.</div>
-            <div id="day1-icon" class="forecast-icon"></div>
-            <div class="forecast-temp" id="day1-temp">27&degC</div>
-          </div>
-          <div id="day2" class="forecast-box">
-            <div class="forecast-day" id="day2-day">Wt.</div>
-            <div id="day2-icon" class="forecast-icon"></div>
-            <div class="forecast-temp" id="day2-temp">2&degC</div>
-          </div>
-          <div id="day3" class="forecast-box">
-            <div class="forecast-day" id="day3-day">Śr.</div>
-            <div id="day3-icon" class="forecast-icon"></div>
-            <div class="forecast-temp" id="day3-temp">27&degC</div>
-          </div>
-          <div id="day4" class="forecast-box">
-            <div class="forecast-day" id="day4-day">Czw.</div>
-            <div id="day4-icon" class="forecast-icon"></div>
-            <div class="forecast-temp" id="day4-temp">13&degC</div>
-          </div>
-          <div id="day5" class="forecast-box">
-            <div class="forecast-day" id="day5-day">Pią.</div>
-            <div id="day5-icon" class="forecast-icon"></div>
-            <div class="forecast-temp" id="day5- temp">16&degC</div>
-          </div>
-        </section>
-        <div class="units">
-          <input type="submit" id="metric-btn" value="metric" class="unitBtn" />
-          <input
-            type="submit"
-            id="imperial-btn"
-            value="imperial"
-            class="unitBtn"
-          />
+      <section id="forecast">
+        <div id="day1" class="forecast-box">
+          <div class="forecast-day" id="day1-day">Pon.</div>
+          <div id="day1-icon" class="forecast-icon"></div>
+          <div class="forecast-temp" id="day1-temp">27&degC</div>
         </div>
-      </div>
-
-      <div id="loading" class="loading-hidden">
-        <img src="img/loading-3-512.png" alt="" />
+        <div id="day2" class="forecast-box">
+          <div class="forecast-day" id="day2-day">Wt.</div>
+          <div id="day2-icon" class="forecast-icon"></div>
+          <div class="forecast-temp" id="day2-temp">2&degC</div>
+        </div>
+        <div id="day3" class="forecast-box">
+          <div class="forecast-day" id="day3-day">Śr.</div>
+          <div id="day3-icon" class="forecast-icon"></div>
+          <div class="forecast-temp" id="day3-temp">27&degC</div>
+        </div>
+        <div id="day4" class="forecast-box">
+          <div class="forecast-day" id="day4-day">Czw.</div>
+          <div id="day4-icon" class="forecast-icon"></div>
+          <div class="forecast-temp" id="day4-temp">13&degC</div>
+        </div>
+        <div id="day5" class="forecast-box">
+          <div class="forecast-day" id="day5-day">Pią.</div>
+          <div id="day5-icon" class="forecast-icon"></div>
+          <div class="forecast-temp" id="day5-temp">16&degC</div>
+        </div>
+      </section>
+      <div class="units">
+        <input type="submit" id="metric-btn" value="metric" class="unitBtn" />
+        <input type="submit" id="imperial-btn" value="imperial" class="unitBtn" />
       </div>
     </div>
 
-    <script type="text/javascript" src="main.js"></script>
-  </body>
+    <div id="loading" class="loading-hidden">
+      <img src="img/loading-3-512.png" alt="" />
+    </div>
+  </div>
+
+  <script type="text/javascript" src="main.js"></script>
+</body>
+
 </html>

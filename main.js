@@ -1,4 +1,5 @@
-var myData;
+var myDataToday;
+var myDataForecast;
 var cityName = document.getElementById("city-name");
 var cityDate = document.getElementById("date");
 var dataBox = document.getElementById("data");
@@ -6,7 +7,7 @@ var mainIcon = document.getElementById("main-icon");
 var windArrow = document.getElementById("wind-icon");
 var input = document.getElementById("city-input");
 var loading = document.getElementById("loading");
-var poka = document.getElementById("check");
+var submit = document.getElementById("check");
 var temp = document.getElementById("temp");
 var pressure = document.getElementById("pressure");
 var humidity = document.getElementById("humidity");
@@ -23,20 +24,47 @@ var forecastDays = [
   forecastDay4,
   forecastDay5
 ];
+var forecastIcon1 = document.getElementById("day1-icon");
+var forecastIcon2 = document.getElementById("day2-icon");
+var forecastIcon3 = document.getElementById("day3-icon");
+var forecastIcon4 = document.getElementById("day4-icon");
+var forecastIcon5 = document.getElementById("day5-icon");
+var forecastIcons = [
+  forecastIcon1,
+  forecastIcon2,
+  forecastIcon3,
+  forecastIcon4,
+  forecastIcon5
+];
+var forecastTemp1 = document.getElementById("day1-temp");
+var forecastTemp2 = document.getElementById("day2-temp");
+var forecastTemp3 = document.getElementById("day3-temp");
+var forecastTemp4 = document.getElementById("day4-temp");
+var forecastTemp5 = document.getElementById("day5-temp");
+var forecastTemps = [
+  forecastTemp1,
+  forecastTemp2,
+  forecastTemp3,
+  forecastTemp4,
+  forecastTemp5
+];
 var days = ["Pon.", "Wt.", "Śr.", "Czw.", "Pią.", "Sob.", "Niedz."];
 var tempUnit = "C";
 var windUnit = "m/s";
 var metricBtn = document.getElementById("metric-btn");
 var imperialBtn = document.getElementById("imperial-btn");
 var myRequest = new XMLHttpRequest();
-var http = "https://openweathermap.org/data/2.5/weather?q=";
+var httpToday = "https://api.openweathermap.org/data/2.5/weather?q=";
 var city;
-var appid = "&appid=b6907d289e10d714a6e88b30761fae22";
-var units = "";
-var url;
+var appid = "&appid=81631cc1843c3ced0966f73c8b9fcdf7";
+var units = "&units=metric";
+var urlToday;
+var urlForecast;
 var city2;
 
-poka.addEventListener("click", function() {
+var httpForecast = "https://api.openweathermap.org/data/2.5/forecast?q=";
+
+submit.addEventListener("click", function() {
   showData();
   city = document.getElementById("city-input").value = "City..";
 });
@@ -69,22 +97,33 @@ function showData() {
     alert("Enter City");
   } else {
     city2 = city;
-    url = http + city + appid + units;
+    urlToday = httpToday + city + appid + units;
+    urlForecast = httpForecast + city + appid + units;
     loading.classList.toggle("loading-display");
     doRequest();
   }
 }
 
 function changeUnits() {
-  url = http + city2 + appid + units;
+  urlToday = httpToday + city2 + appid + units;
+  urlForecast = httpForecast + city2 + appid + units;
   loading.classList.toggle("loading-display");
   doRequest();
 }
 
 function doRequest() {
-  myRequest.open("GET", url);
+  myRequest.open("GET", urlToday);
   myRequest.onload = function() {
-    myData = JSON.parse(myRequest.responseText);
+    myDataToday = JSON.parse(myRequest.responseText);
+    doRequestForecast();
+  };
+  myRequest.send();
+}
+
+function doRequestForecast() {
+  myRequest.open("GET", urlForecast);
+  myRequest.onload = function() {
+    myDataForecast = JSON.parse(myRequest.responseText);
     printData();
     dataBoxDisplay();
     loading.classList.toggle("loading-display");
@@ -94,17 +133,25 @@ function doRequest() {
 
 function printData() {
   var x = Math.pow(10, 1);
-  var temperature = Math.round(x * myData.main.temp) / x;
-  var windDeg = myData.wind.deg;
+  var temperature = Math.round(x * myDataToday.main.temp) / x;
+  var windDeg = myDataToday.wind.deg;
   windArrow.style.transform = "rotate(" + windDeg + "deg)";
   temp.innerHTML = temperature + "&deg" + tempUnit;
-  pressure.innerHTML = myData.main.pressure + " hPa";
-  humidity.innerHTML = myData.main.humidity + "%";
-  wind.innerHTML = myData.wind.speed + " " + windUnit;
-  cityName.innerHTML = myData.name + ", " + myData.sys.country;
-  var iconId = myData.weather[0].icon;
+  pressure.innerHTML = myDataToday.main.pressure + " hPa";
+  humidity.innerHTML = myDataToday.main.humidity + "%";
+  wind.innerHTML = myDataToday.wind.speed + " " + windUnit;
+  cityName.innerHTML = myDataToday.name + ", " + myDataToday.sys.country;
+  var iconId = myDataToday.weather[0].icon;
   mainIcon.style.background = "url('img/" + iconId + ".png')";
   mainIcon.style.backgroundSize = "cover";
+  for (var i = 0; i < forecastDays.length; i++) {
+    forecastIcons[i].style.background =
+      "url('./img/forecast/" +
+      myDataForecast.list[i].weather[0].icon +
+      ".png')";
+    forecastIcons[i].style.backgroundSize = "cover";
+    forecastTemps[i].innerHTML = myDataForecast.list[i + 1].main.temp;
+  }
 }
 
 function dataBoxDisplay() {
