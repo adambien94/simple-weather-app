@@ -48,6 +48,18 @@ var forecastTemps = [
   forecastTemp4,
   forecastTemp5
 ];
+var forecastTempNight1 = document.getElementById("day1-temp-night");
+var forecastTempNight2 = document.getElementById("day2-temp-night");
+var forecastTempNight3 = document.getElementById("day3-temp-night");
+var forecastTempNight4 = document.getElementById("day4-temp-night");
+var forecastTempNight5 = document.getElementById("day5-temp-night");
+var forecastTempsNight = [
+  forecastTempNight1,
+  forecastTempNight2,
+  forecastTempNight3,
+  forecastTempNight4,
+  forecastTempNight5
+];
 var days = ["Pon.", "Wt.", "Śr.", "Czw.", "Pią.", "Sob.", "Niedz."];
 var tempUnit = "C";
 var windUnit = "m/s";
@@ -62,7 +74,7 @@ var urlToday;
 var urlForecast;
 var city2;
 
-var httpForecast = "https://api.openweathermap.org/data/2.5/forecast?q=";
+var httpForecast = "https://api.openweathermap.org/data/2.5/forecast/daily?q=";
 
 submit.addEventListener("click", function() {
   showData();
@@ -78,8 +90,8 @@ imperialBtn.addEventListener("click", function() {
   windUnit = "miles/h";
   tempUnit = "F";
   changeUnits();
-  imperialBtn.style.color = "#C6C6C6";
-  metricBtn.style.color = "#000";
+  imperialBtn.style.color = "#000";
+  metricBtn.style.color = "#C6C6C6";
 });
 
 metricBtn.addEventListener("click", function() {
@@ -87,8 +99,8 @@ metricBtn.addEventListener("click", function() {
   windUnit = "m/s";
   tempUnit = "C";
   changeUnits();
-  imperialBtn.style.color = "#000";
-  metricBtn.style.color = "#C6C6C6";
+  imperialBtn.style.color = "#C6C6C6";
+  metricBtn.style.color = "#000";
 });
 
 function showData() {
@@ -150,7 +162,8 @@ function printData() {
       myDataForecast.list[i].weather[0].icon +
       ".png')";
     forecastIcons[i].style.backgroundSize = "cover";
-    forecastTemps[i].innerHTML = myDataForecast.list[i + 1].main.temp;
+    forecastTemps[i].innerHTML = myDataForecast.list[i + 1].temp.day;
+    forecastTempsNight[i].innerHTML = myDataForecast.list[i + 1].temp.night;
   }
 }
 

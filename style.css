@@ -181,6 +181,13 @@ body {
   font-size: 16px;
   font-weight: 600;
   color: #2689e0;
+}
+
+.forecast-temp-night {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
   margin-bottom: 15px;
 }
 
