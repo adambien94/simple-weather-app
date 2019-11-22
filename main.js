@@ -219,3 +219,22 @@ function updateTime(date) {
     forecastDays[i].innerHTML = days[dayCount];
   }
 }
+
+let test = {
+  warzywa: 1,
+  owoce: 2,
+  mięso: 4,
+  ser: 1
+};
+
+console.log(
+  Object.keys(test).map(key => {
+    return [...Array(test[key])]
+      .map(i => {
+        return key;
+      })
+      .reduce((arr, el) => {
+        return arr.concat(el);
+      }, []);
+  })
+);
